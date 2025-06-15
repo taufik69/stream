@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Streaming</title>
+ 
+</head>
+<body>
+  <video id="myVideo" width="720" controls>
+    <source src="http://localhost:4000/vedio" type="video/mp4" />
+  </video>
+  <div id="bufferBarContainer">
+    <div id="bufferBar"></div>
+  </div>
+  <p>Total Duration: <span id="duration">0</span> seconds</p>
+  <p>Buffered: <span id="buffered">0</span> seconds</p>
+  <script>
+    const video = document.getElementById('myVideo');
+    const durationSpan = document.getElementById('duration');
+    const bufferedSpan = document.getElementById('buffered');
+    const bufferBar = document.getElementById('bufferBar');
+
+    video.addEventListener('loadedmetadata', () => {
+      durationSpan.textContent = video.duration.toFixed(2);
+    });
+
+    video.addEventListener('progress', () => {
+      if (video.buffered.length > 0) {
+        const bufferedEnd = video.buffered.end(0);
+        bufferedSpan.textContent = bufferedEnd.toFixed(2);
+        const percent = (bufferedEnd / video.duration) * 100;
+        bufferBar.style.width = percent + "%";
+      }
+    });
+  </script>
+</body>
+</html>
