@@ -52,6 +52,9 @@ const server = http.createServer((req, res) => {
   }
 });
 
+// this is manual starting system . 
 server.listen(port, () => {
   log(`http://localhost:${port}`);
 });
+
+// write some thing 
